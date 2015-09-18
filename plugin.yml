@@ -1,0 +1,8 @@
+name: Gizmos
+main: com.minedrixmc.gizmos.Gizmos
+version: 1.0
+description: Adds Gizmos to Minedrix.
+author: HRSN0410
+commands:
+    gizmo:
+        description: "Gizmo command."

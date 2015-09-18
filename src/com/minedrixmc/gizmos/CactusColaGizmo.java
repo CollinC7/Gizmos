@@ -8,10 +8,15 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.util.Vector;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
-public class SlimeShoesGizmo implements Listener {
+public class CactusColaGizmo implements Listener {
+	
+	// FINISHED
 	
 	public static HashMap<Player, Double> cooldowns = new HashMap<Player, Double>();
 	
@@ -20,23 +25,25 @@ public class SlimeShoesGizmo implements Listener {
 		
 		Player player = e.getPlayer();
 		
-		if (player.getItemInHand().getType() == Material.SLIME_BALL) {
+		if (player.getItemInHand().getType() == Material.CACTUS && (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)) {
 			
 			e.setCancelled(true);
 			
 			if (cooldowns.get(player) <= 0) {
 				
 				player.sendMessage(colorize("&a&lGIZMO " + Gizmos.getArrow() + "&r&e You used &bCactus Cola&e."));
-
-				player.setVelocity(new Vector(0.0D, 2.5D, 0.0D));
 				
-				cooldowns.put(player, 5.0);
+				PotionEffect speed = new PotionEffect(PotionEffectType.SPEED, 80, 5, false, false);
+				
+				player.addPotionEffect(speed);
+				
+				cooldowns.put(player, 15.0);
 				
 			}
 			
 			else {
 				
-				player.sendMessage(colorize("&a&lCOOLDOWN " + Gizmos.getArrow() + "&r&e You must wait &b" + round(cooldowns.get(player)) + "&e seconds to use &bSlime Shoes&e."));
+				player.sendMessage(colorize("&a&lCOOLDOWN " + Gizmos.getArrow() + "&r&e You must wait &b" + round(cooldowns.get(player)) + "&e seconds to use &bCactus Cola&e."));
 				
 			}
 			
@@ -50,7 +57,18 @@ public class SlimeShoesGizmo implements Listener {
         return Double.valueOf(twoDForm.format(d));
         
     }
-	
+    
 	public static String colorize(String s) { return ChatColor.translateAlternateColorCodes('&', s); }
+	
+	@EventHandler
+	public void onJoin(PlayerJoinEvent e) {
+		
+		if (cooldowns.get(e.getPlayer()) == null) {
+			
+			cooldowns.put(e.getPlayer(), 0.0);
+			
+		}
+		
+	}
 
 }

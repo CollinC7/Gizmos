@@ -2,6 +2,7 @@ package com.minedrixmc.gizmos;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -10,6 +11,7 @@ public class Gizmos extends JavaPlugin {
 	static JavaPlugin instance;
 	static String arrow = "\u2794";
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onEnable() {
 		
@@ -22,6 +24,29 @@ public class Gizmos extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new FreezeRayGizmo(), this);
 		getServer().getPluginManager().registerEvents(new SheepLauncherGizmo(), this);
 		getServer().getPluginManager().registerEvents(new SlimeShoesGizmo(), this);
+		
+		FreezeRayGizmo.forbidden.add(Material.WOOL);
+		FreezeRayGizmo.forbidden.add(Material.LOG);
+		FreezeRayGizmo.forbidden.add(Material.getMaterial(31));
+		FreezeRayGizmo.forbidden.add(Material.LADDER);
+		FreezeRayGizmo.forbidden.add(Material.VINE);
+		FreezeRayGizmo.forbidden.add(Material.RED_ROSE);
+		FreezeRayGizmo.forbidden.add(Material.YELLOW_FLOWER);
+		FreezeRayGizmo.forbidden.add(Material.SIGN);
+		FreezeRayGizmo.forbidden.add(Material.SIGN_POST);
+		FreezeRayGizmo.forbidden.add(Material.IRON_DOOR);
+		FreezeRayGizmo.forbidden.add(Material.IRON_DOOR_BLOCK);
+		FreezeRayGizmo.forbidden.add(Material.WOODEN_DOOR);
+		FreezeRayGizmo.forbidden.add(Material.WOOD_DOOR);
+		FreezeRayGizmo.forbidden.add(Material.REDSTONE_TORCH_ON);
+		FreezeRayGizmo.forbidden.add(Material.REDSTONE_TORCH_OFF);
+		FreezeRayGizmo.forbidden.add(Material.PISTON_BASE);
+		FreezeRayGizmo.forbidden.add(Material.PISTON_EXTENSION);
+		FreezeRayGizmo.forbidden.add(Material.PISTON_MOVING_PIECE);
+		FreezeRayGizmo.forbidden.add(Material.PISTON_STICKY_BASE);
+		FreezeRayGizmo.forbidden.add(Material.CACTUS);
+		FreezeRayGizmo.forbidden.add(Material.SUGAR_CANE_BLOCK);
+		FreezeRayGizmo.forbidden.add(Material.CHEST);
 		
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			
